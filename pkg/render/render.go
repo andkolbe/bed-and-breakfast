@@ -28,7 +28,7 @@ func AddDefaultData(td *models.TemplateData) *models.TemplateData {
 }
 
 // renders templates using html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func Template(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	// in dev mode, don't use the template cache, instead rebuild it on every request
 	var tc map[string]*template.Template
 
