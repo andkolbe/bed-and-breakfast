@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/andkolbe/bed-and-breakfast/internal/forms"
 	"github.com/andkolbe/bed-and-breakfast/internal/models"
 	"github.com/andkolbe/bed-and-breakfast/internal/render"
 )
@@ -42,7 +43,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	data["reservation"] = res
 
 	render.Template(w, r, "make-reservation.page.html", &models.TemplateData{
-		// pass an empty form and the data variable to the template
+		// include empty form, data, and string map when the page loads up for the first time
 		Form:      forms.New(nil),
 		Data:      data,
 		StringMap: stringMap,
@@ -77,14 +78,15 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 
 	// check if the incoming form has all of the fields filled out
 	form.Required("first_name", "last_name", "email")
-	form.MinLength("first_name", 3)
+	form.MinLength("first_name", 3, r)
 	form.IsEmail("email")
 
 	// if one of the fields on the form is not valid, repopulate the form with the data they entered and display the error message where it needs to be
 	if !form.Valid() {
 		data := make(map[string]interface{})
-		data["reservation"] = reservation
+		data["reservation"] = reservation // store the reservation in the data map (first name, last name, phone, email)
 
+		// rerender the form with the information the user filled in
 		render.Template(w, r, "make-reservation.page.html", &models.TemplateData{
 			Form: form,
 			Data: data,

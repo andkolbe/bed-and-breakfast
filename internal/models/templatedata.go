@@ -1,5 +1,7 @@
 package models
 
+import "github.com/andkolbe/bed-and-breakfast/internal/forms"
+
 // holds data send from handlers to templates
 type TemplateData struct {
 	StringMap       map[string]string
@@ -10,6 +12,6 @@ type TemplateData struct {
 	Flash           string
 	Warning         string
 	Error           string
-	// Form            *forms.Form
+	Form            *forms.Form
 	// IsAuthenticated int
 }
