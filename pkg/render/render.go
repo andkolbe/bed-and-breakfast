@@ -1,14 +1,16 @@
 package render
 
 import (
-	"github.com/andkolbe/bed-and-breakfast/pkg/config"
-	"github.com/andkolbe/bed-and-breakfast/pkg/models"
 	"bytes"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/andkolbe/bed-and-breakfast/pkg/config"
+	"github.com/andkolbe/bed-and-breakfast/pkg/models"
+	"github.com/justinas/nosurf"
 )
 
 // a FuncMap is a map of functions that can be used in a template
@@ -22,13 +24,14 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-// add data from the templates
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+// adds data for all the templates
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(r) // adds CSRF tokens to be used on our templates
 	return td
 }
 
 // renders templates using html/template
-func Template(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
 	// in dev mode, don't use the template cache, instead rebuild it on every request
 	var tc map[string]*template.Template
 
@@ -52,7 +55,7 @@ func Template(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	// a bytes buffer will hold the parsed template in bytes in memory
 	buf := new(bytes.Buffer)
 
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 
 	_ = t.Execute(buf, td) // take the template we have, execute it, don't pass it any data and store the value in the buffer variable
 

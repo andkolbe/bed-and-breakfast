@@ -19,8 +19,18 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
+	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Get("/room1", handlers.Repo.Room1)
 	mux.Get("/room2", handlers.Repo.Room2)
+
+	mux.Get("/search-availability", handlers.Repo.SearchAvailability)
+	mux.Post("/search-availability", handlers.Repo.PostAvailability)	
+	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
+
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Post("/make-reservation", handlers.Repo.PostReservation)
+	mux.Get("/reservation-summary", handlers.Repo.ReservationSummary)
+
 
 	// create a file server - a place for the routes to get static files from. Must do this for Go tmpls
 	fileServer := http.FileServer(http.Dir("./static/"))
