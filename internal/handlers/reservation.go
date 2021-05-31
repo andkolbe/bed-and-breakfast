@@ -149,16 +149,18 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	// pass the msg into the app.MailChan channel
 	m.App.MailChan <- msg
 
+	// put the reservation data in the session
 	m.App.Session.Put(r.Context(), "reservation", reservation)
-
-	// redirect the user to a different page after submitting the form so they can't click the submut button twice
+	// redirect the user to a different page after submitting the form so they can't click the submit button twice
 	// StatusSeeOther is response code 303
 	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 }
 
 // displays the reservation summary page
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
-	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+	// get the reservation data out of the session so we can display it on the screen
+	// we need to type assert the reservation data to the type of models.Reservation
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation) 
 	// if it finds something called reservation in the session and it manages to assert it to type models.Reservation, ok will be true
 	if !ok {
 		m.App.ErrorLog.Println("Can't get error from session")
@@ -167,8 +169,8 @@ func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	// take the reservation out of the session and pass it as template data
 	m.App.Session.Remove(r.Context(), "reservation")
-
 	data := make(map[string]interface{})
 	data["reservation"] = reservation
 

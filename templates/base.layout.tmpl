@@ -138,18 +138,18 @@
             })
         }
 
-        // {{with .Error}} // if you have a value in error that is not empty, do this with it
-        // // when someone comes to a page and I want to display an error message
-        // notify("{{.}}", "error")
-        // {{end}}
+        {{with .Error}} // if you have a value in error that is not empty, do this with it
+        // when someone comes to a page and I want to display an error message
+        notify("{{.}}", "error")
+        {{end}}
 
-        // {{with .Flash}} 
-        // notify("{{.}}", "flash")
-        // {{end}}
+        {{with .Flash}} 
+        notify("{{.}}", "flash")
+        {{end}}
 
-        // {{with .Warning}} 
-        // notify("{{.}}", "warning")
-        // {{end}}
+        {{with .Warning}} 
+        notify("{{.}}", "warning")
+        {{end}}
 
     </script>
 
