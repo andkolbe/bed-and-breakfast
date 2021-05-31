@@ -70,6 +70,8 @@
             </div>
         </form>
         `;
+        // once someone calls attention.custom, it pops up a dialogue box, they choose some dates, click enter, 
+        // and whatever is inside of callback gets executed
         attention.custom({
             title: 'Choose your dates',
             msg: html,
@@ -89,7 +91,6 @@
 
             // run the result of this callback if all the if statements pass
             callback: function (result) {
-                console.log('called')
 
                 // get the form and store the reference in a variable
                 let form = document.getElementById('check-availability-form')
@@ -100,11 +101,11 @@
 
                 fetch('/search-availability-json', {
                     method: 'POST',
-                    body: formData,
+                    body: formData, 
                 })
-                    .then(response => response.json()) //convert the response into JSON
-                    .then(data => {
-                        if (data.ok) {
+                    .then(response => response.json()) // convert the response into JSON
+                    .then(data => { // take that data and do something with it
+                        if (data.ok) { // if those dates are available
                             attention.custom({
                                 icon: 'success',
                                 showConfirmButton: false,

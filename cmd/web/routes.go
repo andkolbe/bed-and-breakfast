@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/andkolbe/bed-and-breakfast/pkg/config"
-	"github.com/andkolbe/bed-and-breakfast/pkg/handlers"
+	"github.com/andkolbe/bed-and-breakfast/internal/config"
+	"github.com/andkolbe/bed-and-breakfast/internal/handlers"
 	"github.com/go-chi/chi/v5"
 )
 

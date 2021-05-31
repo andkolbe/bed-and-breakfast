@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/andkolbe/bed-and-breakfast/pkg/models"
-	"github.com/andkolbe/bed-and-breakfast/pkg/render"
+	"github.com/andkolbe/bed-and-breakfast/internal/models"
+	"github.com/andkolbe/bed-and-breakfast/internal/render"
 )
 
 // reservation page handler

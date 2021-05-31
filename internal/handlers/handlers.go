@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/andkolbe/bed-and-breakfast/pkg/config"
-	"github.com/andkolbe/bed-and-breakfast/pkg/models"
-	"github.com/andkolbe/bed-and-breakfast/pkg/render"
+	"github.com/andkolbe/bed-and-breakfast/internal/config"
+	"github.com/andkolbe/bed-and-breakfast/internal/models"
+	"github.com/andkolbe/bed-and-breakfast/internal/render"
 )
 
 // Repo the repository used by the handlers

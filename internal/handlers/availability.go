@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/andkolbe/bed-and-breakfast/pkg/models"
-	"github.com/andkolbe/bed-and-breakfast/pkg/render"
+	"github.com/andkolbe/bed-and-breakfast/internal/models"
+	"github.com/andkolbe/bed-and-breakfast/internal/render"
 )
 
 // room availability page handler
@@ -65,6 +65,7 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// define the JSON type we want to use in our response
 // if you want to export a struct to JSON, the member names must start with a capital letter
 type jsonResponse struct {
 	OK        bool   `json:"ok"`
@@ -114,7 +115,7 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// create the struct type in a reusable variable
+	// create our response in a reusable variable
 	resp := jsonResponse {
 		OK:        available,
 		Message:   "",
@@ -123,7 +124,7 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 		RoomID:    strconv.Itoa(roomID),
 	}
 
-	// marshall the resp into json
+	// marshal the resp into json
 	out, _ := json.MarshalIndent(resp, "", "     ")
 	// don't need an error check, since we handle all aspects of the JSON already
 

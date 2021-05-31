@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/andkolbe/bed-and-breakfast/pkg/config"
-	"github.com/andkolbe/bed-and-breakfast/pkg/handlers"
-	"github.com/andkolbe/bed-and-breakfast/pkg/render"
+	"github.com/andkolbe/bed-and-breakfast/internal/config"
+	"github.com/andkolbe/bed-and-breakfast/internal/handlers"
+	"github.com/andkolbe/bed-and-breakfast/internal/render"
 )
 
 const portNumber = ":8080"
